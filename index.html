@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en" class="lang-en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verified Help | भरोसेमंद मदद</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans+Devanagari:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      --primary:#6366f1;
+      --secondary:#ec4899;
+      --accent:#22c55e;
+      --bg:#0f172a;
+      --card:#0b1120;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --danger:#ef4444;
+      --warning:#f97316;
+      --radius-xl:24px;
+      --radius-lg:18px;
+      --shadow-lg:0 20px 60px rgba(15,23,42,.65);
+      --blur:18px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:Poppins,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:radial-gradient(circle at top,#1d4ed8,#0f172a 55%);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .hindi{font-family:"Noto Sans Devanagari",sans-serif}
+    .lang-en .hindi{display:none}
+    .lang-hi .english{display:none}
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Header / Navbar */
+    header{
+      position:fixed;
+      inset:0 0 auto;
+      z-index:50;
+      backdrop-filter:blur(var(--blur));
+      background:linear-gradient(90deg,rgba(15,23,42,.92),rgba(15,23,42,.85));
+      border-bottom:1px solid rgba(148,163,184,.3);
+    }
+    .nav-inner{
+      max-width:1200px;
+      margin:auto;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .logo-badge{
+      width:40px;height:40px;
+      border-radius:14px;
+      background:conic-gradient(from 180deg,var(--primary),var(--secondary),var(--accent),var(--primary));
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 30px rgba(129,140,248,.8);
+    }
+    .logo-badge i{color:white;font-size:20px}
+    .brand-text{line-height:1.1}
+    .brand-title{font-weight:700;font-size:1.1rem}
+    .brand-sub{font-size:.75rem;color:var(--muted)}
+
+    .nav-links{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      list-style:none;
+    }
+    .nav-links a{
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:.82rem;
+      color:var(--muted);
+      transition:.25s;
+      white-space:nowrap;
+    }
+    .nav-links a.active,
+    .nav-links a:hover{
+      color:#e5e7eb;
+      background:linear-gradient(90deg,var(--primary),var(--secondary));
+      box-shadow:0 10px 30px rgba(129,140,248,.5);
+    }
+
+    .nav-actions{display:flex;gap:8px;align-items:center}
+    .chip-btn{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.5);
+      background:rgba(15,23,42,.75);
+      color:var(--muted);
+      font-size:.8rem;
+      padding:7px 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      cursor:pointer;
+      transition:.2s;
+    }
+    .chip-btn:hover{
+      border-color:var(--primary);
+      color:#e5e7eb;
+      box-shadow:0 0 0 1px rgba(129,140,248,.5);
+    }
+    .chip-btn i{font-size:.9rem}
+
+    .search-box{
+      position:relative;
+      max-width:230px;
+      flex:1;
+    }
+    .search-box input{
+      width:100%;
+      padding:7px 30px 7px 12px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.45);
+      background:rgba(15,23,42,.8);
+      color:var(--text);
+      font-size:.8rem;
+    }
+    .search-box input::placeholder{color:#64748b}
+    .search-box i{
+      position:absolute;
+      right:10px;top:50%;
+      transform:translateY(-50%);
+      font-size:.8rem;
+      color:#64748b;
+    }
+
+    /* Mobile nav */
+    .hamburger{
+      display:none;
+      width:34px;height:28px;
+      flex-direction:column;
+      justify-content:space-between;
+      cursor:pointer;
+    }
+    .hamburger span{
+      height:3px;border-radius:999px;
+      background:#e5e7eb;
+      transition:.3s;
+    }
+    .hamburger.active span:nth-child(1){
+      transform:translateY(12px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2){opacity:0}
+    .hamburger.active span:nth-child(3){
+      transform:translateY(-12px) rotate(-45deg);
+    }
+    .mobile-menu{
+      display:none;
+      background:rgba(15,23,42,.98);
+      border-top:1px solid rgba(148,163,184,.3);
+    }
+    .mobile-menu.open{display:block}
+    .mobile-menu ul{list-style:none;padding:10px 16px}
+    .mobile-menu li a{
+      display:block;
+      padding:10px 12px;
+      border-radius:12px;
+      margin-bottom:4px;
+      font-size:.88rem;
+      color:var(--muted);
+    }
+    .mobile-menu li a:hover{background:rgba(30,64,175,.7);color:#e5e7eb}
+
+    /* Layout */
+    main{padding-top:80px}
+    .section{
+      max-width:1200px;
+      margin:0 auto;
+      padding:32px 18px 60px;
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
+      gap:28px;
+      align-items:center;
+    }
+    .hero-left h1{
+      font-size:2.4rem;
+      line-height:1.1;
+      margin-bottom:12px;
+    }
+    .hero-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:5px 11px;
+      border-radius:999px;
+      background:rgba(15,23,42,.8);
+      border:1px solid rgba(248,250,252,.08);
+      font-size:.75rem;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .hero-left p{
+      color:var(--muted);
+      font-size:.9rem;
+      max-width:520px;
+    }
+    .hero-highlight{
+      color:#f9fafb;
+      font-weight:600;
+    }
+    .hero-actions{
+      margin-top:16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .btn{
+      border:none;
+      cursor:pointer;
+      padding:9px 18px;
+      border-radius:999px;
+      font-size:.9rem;
+      font-weight:500;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition:.25s;
+      text-decoration:none;
+    }
+    .btn-primary{
+      background:linear-gradient(90deg,var(--primary),var(--secondary));
+      color:white;
+      box-shadow:0 14px 40px rgba(129,140,248,.7);
+    }
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 50px rgba(129,140,248,.9);
+    }
+    .btn-ghost{
+      background:rgba(15,23,42,.85);
+      border:1px solid rgba(148,163,184,.6);
+      color:var(--muted);
+    }
+    .btn-ghost:hover{
+      border-color:var(--accent);
+      color:#e5e7eb;
+      box-shadow:0 10px 30px rgba(34,197,94,.4);
+    }
+
+    .hero-right{
+      position:relative;
+    }
+    .glass-card{
+      background:radial-gradient(circle at top,#1e293b,#020617);
+      border-radius:var(--radius-xl);
+      padding:18px 18px 16px;
+      box-shadow:var(--shadow-lg);
+      border:1px solid rgba(148,163,184,.4);
+      position:relative;
+      overflow:hidden;
+    }
+    .glass-card::before{
+      content:"";
+      position:absolute;
+      inset:-50%;
+      background:conic-gradient(from 40deg,rgba(96,165,250,.35),rgba(236,72,153,.12),transparent,rgba(52,211,153,.18));
+      mix-blend-mode:screen;
+      opacity:.8;
+      animation:spin 18s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .glass-inner{position:relative;z-index:1}
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-bottom:10px;
+      font-size:.7rem;
+    }
+    .pill{
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.5);
+      color:var(--muted);
+    }
+    .trust{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:6px;
+      font-size:.72rem;
+      color:var(--muted);
+    }
+    .trust span strong{color:#e5e7eb}
+
+    .stats-row{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    .stat-card{
+      flex:1 1 90px;
+      background:rgba(15,23,42,.9);
+      border-radius:16px;
+      padding:9px 10px;
+      border:1px solid rgba(148,163,184,.4);
+      text-align:left;
+    }
+    .stat-number{
+      font-size:1.05rem;
+      font-weight:700;
+      color:#f97316;
+    }
+    .stat-label{
+      font-size:.72rem;
+      color:var(--muted);
+    }
+
+    /* Section titles */
+    .section-title{
+      font-size:1.4rem;
+      margin-bottom:6px;
+    }
+    .section-sub{
+      font-size:.85rem;
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+
+    /* Grid / cards */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+    @media(max-width:900px){
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media(max-width:640px){
+      .grid{grid-template-columns:1fr}
+    }
+    .card{
+      background:rgba(15,23,42,.9);
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(148,163,184,.4);
+      padding:14px 14px 16px;
+      box-shadow:0 14px 40px rgba(15,23,42,.7);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:auto -40% -40% auto;
+      background:radial-gradient(circle at top,var(--primary),transparent 60%);
+      opacity:.3;
+    }
+    .card-icon{
+      width:32px;height:32px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(55,65,81,.9);
+      margin-bottom:8px;
+    }
+    .card-icon i{font-size:1rem}
+    .card h3{
+      font-size:.98rem;
+      margin-bottom:4px;
+    }
+    .card p{
+      font-size:.8rem;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+    .badge{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.6);
+      padding:2px 8px;
+      font-size:.7rem;
+      color:#e5e7eb;
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+    }
+
+    /* Feature sections switch */
+    .feature-section{display:none;animation:fadeIn .35s ease-out}
+    .feature-section.active{display:block}
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(12px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    /* Safety checklist */
+    .checklist{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      font-size:.8rem;
+    }
+    @media(max-width:700px){.checklist{grid-template-columns:1fr}}
+    .check-item{
+      display:flex;
+      gap:8px;
+      padding:6px 8px;
+      border-radius:12px;
+      background:rgba(15,23,42,.9);
+      border:1px solid rgba(75,85,99,.7);
+    }
+    .check-item i{margin-top:2px}
+
+    /* Table */
+    .table-wrap{
+      margin-top:10px;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.45);
+      overflow:hidden;
+      background:#020617;
+      box-shadow:var(--shadow-lg);
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:.8rem;
+    }
+    th,td{
+      padding:9px 10px;
+      text-align:left;
+    }
+    th{
+      background:linear-gradient(90deg,var(--primary),var(--secondary));
+      color:white;
+      font-weight:500;
+      position:sticky;
+      top:0;
+      z-index:1;
+    }
+    tbody tr:nth-child(odd){background:#020617}
+    tbody tr:nth-child(even){background:#020617dd}
+    tbody tr:hover{background:#0b1220}
+
+    /* Quiz */
+    .quiz{
+      margin-top:14px;
+      padding:12px;
+      border-radius:18px;
+      background:radial-gradient(circle at top,#1e293b,#020617);
+      border:1px solid rgba(248,250,252,.12);
+    }
+    .quiz-q{font-size:.85rem;margin-bottom:8px}
+    .quiz-options{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .quiz-option{
+      flex:1 1 80px;
+      padding:6px 9px;
+      border-radius:999px;
+      background:rgba(15,23,42,.9);
+      border:1px solid rgba(148,163,184,.5);
+      font-size:.8rem;
+      cursor:pointer;
+      text-align:center;
+      transition:.2s;
+    }
+    .quiz-option:hover{border-color:var(--primary)}
+    .quiz-option.correct{background:rgba(22,163,74,.2);border-color:#22c55e}
+    .quiz-option.wrong{background:rgba(239,68,68,.22);border-color:#ef4444}
+    .quiz-result{margin-top:6px;font-size:.78rem}
+
+    /* Fake news tool */
+    .tool-box{
+      margin-top:10px;
+      padding:12px;
+      border-radius:18px;
+      background:rgba(15,23,42,.9);
+      border:1px solid rgba(148,163,184,.4);
+      font-size:.8rem;
+    }
+    .tool-box textarea{
+      width:100%;
+      border-radius:12px;
+      border:1px solid rgba(148,163,184,.5);
+      background:#020617;
+      color:var(--text);
+      padding:8px;
+      resize:vertical;
+      min-height:80px;
+      font-size:.78rem;
+    }
+    .tool-actions{
+      margin-top:6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .pill-info{
+      font-size:.72rem;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .pill-info span{
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.4);
+    }
+
+    /* Form */
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      font-size:.8rem;
+      margin-top:10px;
+    }
+    @media(max-width:720px){.form-grid{grid-template-columns:1fr}}
+    label{display:block;margin-bottom:3px;color:var(--muted)}
+    input,select,textarea{
+      width:100%;
+      border-radius:12px;
+      border:1px solid rgba(148,163,184,.6);
+      background:#020617;
+      color:var(--text);
+      padding:7px 9px;
+      font-size:.8rem;
+      font-family:inherit;
+    }
+    textarea{min-height:70px}
+    .full-row{grid-column:1/-1}
+
+    /* Footer */
+    footer{
+      border-top:1px solid rgba(148,163,184,.35);
+      padding:18px;
+      text-align:center;
+      font-size:.75rem;
+      color:var(--muted);
+      background:#020617ee;
+    }
+
+    /* Responsive hero / nav */
+    @media(max-width:960px){
+      .hero{grid-template-columns:1fr}
+    }
+    @media(max-width:780px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .nav-inner{padding-inline:14px}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="logo-badge"><i class="fa-solid fa-shield-heart"></i></div>
+      <div class="brand-text">
+        <div class="brand-title">
+          VERIFIED HELP
+          <span class="hindi"> | भरोसेमंद मदद</span>
+        </div>
+        <div class="brand-sub">
+          One-page trusted guide • Fake-news free
+          <span class="hindi"> • झूठी खबरों से मुक्त</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#" data-target="home" class="active">Home</a></li>
+      <li><a href="#" data-target="safety">Online Safety</a></li>
+      <li><a href="#" data-target="govt">Govt Services</a></li>
+      <li><a href="#" data-target="students">Student Help</a></li>
+      <li><a href="#" data-target="fake">Fake News Check</a></li>
+      <li><a href="#" data-target="emergency">Emergency</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="search-box">
+        <input id="searchInput" placeholder="Search topic… / खोजें…">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <button class="chip-btn" id="langToggle">
+        <i class="fa-solid fa-language"></i>
+        <span class="english">हिन्दी</span>
+        <span class="hindi">English</span>
+      </button>
+      <button class="chip-btn" id="modeToggle" title="Dark / Light">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#" data-target="home">Home / होम</a></li>
+      <li><a href="#" data-target="safety">Online Safety / ऑनलाइन सुरक्षा</a></li>
+      <li><a href="#" data-target="govt">Govt Services / सरकारी सेवाएं</a></li>
+      <li><a href="#" data-target="students">Student Help / स्टूडेंट हेल्प</a></li>
+      <li><a href="#" data-target="fake">Fake News Check / फेक न्यूज़</a></li>
+      <li><a href="#" data-target="emergency">Emergency / इमरजेंसी</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- HOME / PROBLEM + SOLUTION -->
+  <section class="section feature-section active" id="home">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-tag">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span class="english">Daily problem: too much, untrusted info</span>
+          <span class="hindi">समस्या: ढेरों जानकारी, पर भरोसा नहीं</span>
+        </div>
+        <h1>
+          One-page verified help
+          <span class="hindi">एक ही जगह भरोसेमंद मदद</span>
+        </h1>
+        <p>
+          <span class="english">
+            Internet has noise, scams and fake news. This platform filters it into
+            <span class="hero-highlight">only what is true, safe and important</span>.
+          </span>
+          <span class="hindi">
+            इंटरनेट पर फ़र्ज़ी खबरें, स्कैम और कन्फ्यूज़न है। यह प्लेटफ़ॉर्म आपको
+            <span class="hero-highlight">सिर्फ सही, सुरक्षित और ज़रूरी जानकारी</span> देता है।
+          </span>
+        </p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary" data-target="safety">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span class="english">Start with Online Safety</span>
+            <span class="hindi">ऑनलाइन सुरक्षा से शुरू करें</span>
+          </a>
+          <a href="#" class="btn btn-ghost" data-target="students">
+            <i class="fa-solid fa-user-graduate"></i>
+            <span class="english">Student & Career Help</span>
+            <span class="hindi">स्टूडेंट और करियर हेल्प</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="glass-card">
+          <div class="glass-inner">
+            <div class="pill-row">
+              <span class="pill">
+                <i class="fa-solid fa-check-circle"></i>
+                <span class="english">Verified only</span>
+                <span class="hindi">सिर्फ वेरिफाइड</span>
+              </span>
+              <span class="pill">
+                <i class="fa-solid fa-language"></i> EN + HI
+              </span>
+              <span class="pill">
+                <i class="fa-solid fa-users"></i>
+                <span class="english">Students • Parents • Elders</span>
+                <span class="hindi">स्टूडेंट • माता-पिता • बुज़ुर्ग</span>
+              </span>
+            </div>
+
+            <div class="trust">
+              <span>
+                <strong>0 fake news</strong>
+                <span class="english">policy</span>
+                <span class="hindi">नीति</span>
+              </span>
+              <span>
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span class="english">Teacher-friendly</span>
+                <span class="hindi">टीचर फ्रेंडली</span>
+              </span>
+            </div>
+
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-number">3+</div>
+                <div class="stat-label">
+                  <span class="english">Govt safety sources used</span>
+                  <span class="hindi">सरकारी सुरक्षा गाइड से</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">
+                  <span class="english">Core verified sections</span>
+                  <span class="hindi">मुख्य सुरक्षित सेक्शन</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">
+                  <span class="english">Languages • भाषा</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:14px;font-size:.75rem;color:var(--muted)">
+              <span class="english">
+                Designed as a college-level project: responsive, bilingual, social-impact focused.
+              </span>
+              <span class="hindi">
+                यह वेबसाइट कॉलेज लेवल प्रोजेक्ट के लिए बनी है – रिस्पॉन्सिव, दो भाषाओं में और सामाजिक प्रभाव पर फोकस।
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ONLINE SAFETY -->
+  <section class="section feature-section" id="safety">
+    <h2 class="section-title">
+      <span class="english">Online Safety</span>
+      <span class="hindi">ऑनलाइन सुरक्षा</span>
+    </h2>
+    <p class="section-sub">
+      <span class="english">
+        Learn simple rules from national cyber-safety campaigns: strong passwords, safe payments,
+        and reporting fraud quickly.
+      </span>
+      <span class="hindi">
+        राष्ट्रीय साइबर सेफ़्टी कैंपेन से आसान नियम – मज़बूत पासवर्ड, सुरक्षित पेमेंट और फ्रॉड की तुरंत रिपोर्ट। 
+      </span>
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon" style="background:#1f2937">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <h3>Safe Passwords / सुरक्षित पासवर्ड</h3>
+        <p>
+          Use long, unique passwords and turn on 2‑factor authentication for email, UPI apps and social media.
+        </p>
+        <span class="badge">
+          <i class="fa-solid fa-key"></i> 12+ characters • A1a!
+        </span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon" style="background:#1f2937">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+        <h3>Safe Payments / सुरक्षित पेमेंट</h3>
+        <p>
+          Pay only through official apps, never share OTP or UPI PIN, and avoid public Wi‑Fi for banking [web:24][web:27].
+        </p>
+        <span class="badge">
+          <i class="fa-solid fa-indian-rupee-sign"></i> Think before you tap
+        </span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon" style="background:#1f2937">
+          <i class="fa-solid fa-bell"></i>
+        </div>
+        <h3>Report Fraud / फ्रॉड रिपोर्ट करें</h3>
+        <p>
+          For digital payment fraud, call the national cyber-helpline 1930 or use cybercrime.gov.in immediately [web:24][web:27].
+        </p>
+        <span class="badge">
+          <i class="fa-solid fa-triangle-exclamation"></i> Golden 1–2 hours
+        </span>
+      </div>
+    </div>
+
+    <div class="checklist" style="margin-top:16px">
+      <div class="check-item">
+        <i class="fa-solid fa-circle-check" style="color:#22c55e"></i>
+        <div>
+          <strong>Do this (करें)</strong><br>
+          Update phone, browser and antivirus regularly to stop known viruses and malware [web:26][web:27].
+        </div>
+      </div>
+      <div class="check-item">
+        <i class="fa-solid fa-circle-xmark" style="color:#ef4444"></i>
+        <div>
+          <strong>Never do this (न करें)</strong><br>
+          Don’t click links promising free gifts, loans or jobs that look “too good to be true” [web:27].
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-q">
+        🔐
+        <span class="english">Quick check: A caller says “I am from your bank, tell OTP now or account will freeze.” What should you do?</span>
+        <span class="hindi">क्विक चेक: कोई कहता है “मैं बैंक से बोल रहा हूँ, अभी OTP बताओ वरना अकाउंट बंद।” आपको क्या करना चाहिए?</span>
+      </div>
+      <div class="quiz-options" id="safetyQuiz">
+        <div class="quiz-option">Give OTP quickly</div>
+        <div class="quiz-option">Cut the call & call official number</div>
+        <div class="quiz-option">Ask them to WhatsApp</div>
+      </div>
+      <div class="quiz-result" id="safetyQuizResult"></div>
+    </div>
+  </section>
+
+  <!-- GOVERNMENT SERVICES -->
+  <section class="section feature-section" id="govt">
+    <h2 class="section-title">
+      <span class="english">Government Services Explained</span>
+      <span class="hindi">सरकारी सेवाएं आसान भाषा में</span>
+    </h2>
+    <p class="section-sub">
+      <span class="english">
+        Access key portals like UMANG, DigiLocker and Aadhaar safely instead of searching random links.
+      </span>
+      <span class="hindi">
+        UMANG, DigiLocker और Aadhaar जैसी मुख्य सरकारी सेवाओं का सही और सुरक्षित इस्तेमाल सीखें।
+      </span>
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+        <tr>
+          <th>Service / सेवा</th>
+          <th>Use / उपयोग</th>
+          <th>Official Link</th>
+          <th>Helpline</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>UMANG App</td>
+          <td>Bill payment, PF, pension, scholarships etc. for all citizens [web:24].</td>
+          <td>web.umang.gov.in</td>
+          <td>14567</td>
+        </tr>
+        <tr>
+          <td>DigiLocker</td>
+          <td>Store Aadhaar, PAN, marksheets, RC in govt-verified digital form [web:24].</td>
+          <td>digilocker.gov.in</td>
+          <td>1800‑890‑1800</td>
+        </tr>
+        <tr>
+          <td>Aadhaar Services</td>
+          <td>Update address, download Aadhaar, lock biometrics online [web:27].</td>
+          <td>uidai.gov.in</td>
+          <td>1947</td>
+        </tr>
+        <tr>
+          <td>Cyber Swachhta Kendra</td>
+          <td>Free tools to clean malware & bots from devices [web:26][web:27].</td>
+          <td>csk.gov.in</td>
+          <td>CERT‑In</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- STUDENT HELP -->
+  <section class="section feature-section" id="students">
+    <h2 class="section-title">
+      <span class="english">Student & Career Help</span>
+      <span class="hindi">स्टूडेंट और करियर हेल्प</span>
+    </h2>
+    <p class="section-sub">
+      <span class="english">
+        Avoid fake “career gurus”. Start with structured assessments, verified platforms and real counsellors.
+      </span>
+      <span class="hindi">
+        नकली “करियर गुरु” से बचें। असली गाइडेंस के लिए टेस्ट, वेरिफाइड प्लेटफ़ॉर्म और काउंसलर का इस्तेमाल करें।
+      </span>
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-user-graduate"></i></div>
+        <h3>Step 1: Know Yourself</h3>
+        <p>
+          Take psychometric or aptitude tests from reputed organisations or school-college counsellors instead of random Instagram quizzes [web:29][web:32].
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-globe"></i></div>
+        <h3>Step 2: Check Source</h3>
+        <p>
+          Genuine counsellors show credentials, website, and clear process; avoid those promising “100% job in 7 days”.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-briefcase"></i></div>
+        <h3>Step 3: Cross-verify</h3>
+        <p>
+          Compare advice with government portals, university websites and more than one trusted career site [web:29][web:32].
+        </p>
+      </div>
+    </div>
+
+    <div class="quiz" style="margin-top:16px">
+      <div class="quiz-q">
+        🎯
+        <span class="english">Mini reflection: What is your goal for the next 2 years?</span>
+        <span class="hindi">अगले 2 साल में आपका मुख्य लक्ष्य क्या है?</span>
+      </div>
+      <div class="form-grid">
+        <div class="full-row">
+          <textarea id="goalInput" placeholder="Write here… / यहाँ लिखें…"></textarea>
+        </div>
+      </div>
+      <div class="quiz-result" id="goalResult"></div>
+    </div>
+  </section>
+
+  <!-- FAKE NEWS CHECK -->
+  <section class="section feature-section" id="fake">
+    <h2 class="section-title">
+      <span class="english">Fake News & Fact Check</span>
+      <span class="hindi">फेक न्यूज़ और फैक्ट चेक</span>
+    </h2>
+    <p class="section-sub">
+      <span class="english">
+        Simple steps used by fact-checkers: verify source, image, date and cross-check with reliable outlets [web:30][web:33].
+      </span>
+      <span class="hindi">
+        फैक्ट‑चेकर जैसे आसान स्टेप्स अपनाएं – स्रोत, फोटो, तारीख और भरोसेमंद न्यूज़ के साथ क्रॉस‑चेक करें।
+      </span>
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-newspaper"></i></div>
+        <h3>Source Check / स्रोत जांच</h3>
+        <p>
+          Trust only recognised news brands, official govt handles or verified fact-check sites before forwarding viral content [web:30][web:33].
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-image"></i></div>
+        <h3>Image & Video Check</h3>
+        <p>
+          Use reverse-image search and look for strange shadows, audio mismatch or overly dramatic edits in videos [web:30][web:33].
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+        <h3>Date & Context</h3>
+        <p>
+          Many fake posts use old photos with new headlines; always confirm date and place before believing [web:30].
+        </p>
+      </div>
+    </div>
+
+    <div class="tool-box">
+      <div style="margin-bottom:6px;font-weight:600;font-size:.85rem">
+        🧪 Fake-news quick test / फेक न्यूज़ क्विक टेस्ट
+      </div>
+      <textarea id="fakeInput"
+        placeholder="Paste a forwarded message headline here… / यहाँ फॉरवर्डेड मैसेज की हेडलाइन लिखें…"></textarea>
+      <div class="tool-actions">
+        <button class="btn btn-primary" id="fakeCheckBtn" style="padding:7px 14px;font-size:.8rem">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span class="english">Analyse</span>
+          <span class="hindi">जांचें</span>
+        </button>
+        <div class="pill-info">
+          <span>#CheckTheSource</span>
+          <span>#VerifyBeforeShare</span>
+        </div>
+      </div>
+      <div class="quiz-result" id="fakeResult"></div>
+    </div>
+  </section>
+
+  <!-- EMERGENCY -->
+  <section class="section feature-section" id="emergency">
+    <h2 class="section-title">
+      <span class="english">Emergency Guidance</span>
+      <span class="hindi">आपातकालीन मार्गदर्शन</span>
+    </h2>
+    <p class="section-sub">
+      <span class="english">
+        Keep critical numbers ready. Act fast, stay calm, and prioritise safety before sharing any information.
+      </span>
+      <span class="hindi">
+        ज़रूरी नंबर हमेशा पास रखें। घबराएं नहीं, जल्दी कार्रवाई करें और जानकारी देने से पहले सोचें।
+      </span>
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+        <tr>
+          <th>Service</th>
+          <th>Number</th>
+          <th>When to use</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Police / पुलिस</td>
+          <td><strong>100 / 112</strong></td>
+          <td>Immediate physical danger, crime, harassment.</td>
+        </tr>
+        <tr>
+          <td>Cyber Crime / साइबर अपराध</td>
+          <td><strong>1930</strong></td>
+          <td>UPI, card, net-banking or online fraud/cheating [web:24][web:27].</td>
+        </tr>
+        <tr>
+          <td>Women Helpline</td>
+          <td><strong>181</strong></td>
+          <td>Violence, stalking or unsafe situations for women.</td>
+        </tr>
+        <tr>
+          <td>Child Helpline</td>
+          <td><strong>1098</strong></td>
+          <td>Threats, abuse or exploitation involving children.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quiz" style="margin-top:16px">
+      <div class="quiz-q">
+        📩
+        <span class="english">Need guidance? Send a help request (demo only).</span>
+        <span class="hindi">मदद चाहिए? यहां डेमो हेल्प रिक्वेस्ट भेजें।</span>
+      </div>
+      <form class="form-grid" id="helpForm">
+        <div>
+          <label>Name / नाम</label>
+          <input id="name" required>
+        </div>
+        <div>
+          <label>Phone (optional) / फोन (वैकल्पिक)</label>
+          <input id="phone">
+        </div>
+        <div>
+          <label>Issue Type / समस्या प्रकार</label>
+          <select id="issue">
+            <option>Online fraud</option>
+            <option>Abusive call / message</option>
+            <option>Fake news confusion</option>
+            <option>Career / student confusion</option>
+          </select>
+        </div>
+        <div class="full-row">
+          <label>What happened? / क्या हुआ?</label>
+          <textarea id="detail" required></textarea>
+        </div>
+        <div class="full-row">
+          <button class="btn btn-primary" type="submit">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span class="english">Send Demo Request</span>
+            <span class="hindi">डेमो रिक्वेस्ट भेजें</span>
+          </button>
+        </div>
+      </form>
+      <div class="quiz-result" id="helpResult"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2025 Verified Help •
+  <span class="english">Built as a social‑impact college project.</span>
+  <span class="hindi">यह एक सामाजिक‑प्रभाव वाला कॉलेज प्रोजेक्ट है।</span>
+</footer>
+
+<script>
+  // Navigation section switch
+  function activateSection(id){
+    document.querySelectorAll('.feature-section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+    document.querySelectorAll('[data-target="'+id+'"]').forEach(a=>a.classList.add('active'));
+    window.scrollTo({top:80,behavior:'smooth'});
+  }
+  document.querySelectorAll('.nav-links a, .hero-actions a, .mobile-menu a')
+    .forEach(link=>{
+      link.addEventListener('click',e=>{
+        e.preventDefault();
+        const target=link.getAttribute('data-target');
+        if(target) activateSection(target);
+        document.getElementById('mobileMenu').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('active');
+      });
+    });
+
+  // Language toggle
+  const langToggle=document.getElementById('langToggle');
+  langToggle.onclick=()=>{
+    const html=document.documentElement;
+    if(html.classList.contains('lang-en')){
+      html.classList.remove('lang-en');html.classList.add('lang-hi');
+    }else{
+      html.classList.remove('lang-hi');html.classList.add('lang-en');
+    }
+  };
+
+  // Dark/light (simple toggle of body class)
+  document.getElementById('modeToggle').onclick=()=>{
+    document.body.classList.toggle('light');
+  };
+
+  // Mobile menu
+  const hamburger=document.getElementById('hamburger');
+  const mobileMenu=document.getElementById('mobileMenu');
+  hamburger.onclick=()=>{
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+  };
+
+  // Search shortcuts
+  document.getElementById('searchInput').addEventListener('keypress',e=>{
+    if(e.key==='Enter'){
+      const q=e.target.value.toLowerCase();
+      if(q.includes('safety')||q.includes('fraud')||q.includes('secure')){
+        activateSection('safety');
+      }else if(q.includes('gov')||q.includes('aadhaar')||q.includes('umang')||q.includes('pension')){
+        activateSection('govt');
+      }else if(q.includes('student')||q.includes('career')||q.includes('college')){
+        activateSection('students');
+      }else if(q.includes('fake')||q.includes('news')){
+        activateSection('fake');
+      }else if(q.includes('emergency')||q.includes('1930')||q.includes('112')){
+        activateSection('emergency');
+      }else{
+        alert('Topic not found. Try: "safety", "govt", "student", "fake news", "emergency".');
+      }
+    }
+  });
+
+  // Safety quiz
+  const safetyQuiz=document.getElementById('safetyQuiz');
+  const safetyResult=document.getElementById('safetyQuizResult');
+  safetyQuiz.addEventListener('click',e=>{
+    if(!e.target.classList.contains('quiz-option'))return;
+    safetyQuiz.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('correct','wrong'));
+    const text=e.target.textContent.trim();
+    if(text.startsWith('Cut the call')){
+      e.target.classList.add('correct');
+      safetyResult.textContent='Correct: कभी भी फोन पर OTP न बताएं, खुद बैंक के आधिकारिक नंबर पर कॉल करें।';
+    }else{
+      e.target.classList.add('wrong');
+      safetyResult.textContent='गलत: बैंक कभी फोन करके OTP या PIN नहीं पूछता। कॉल काटें और खुद आधिकारिक नंबर मिलाएं।';
+    }
+  });
+
+  // Simple fake-news analyser (rule-based demo)
+  const fakeBtn=document.getElementById('fakeCheckBtn');
+  const fakeInput=document.getElementById('fakeInput');
+  const fakeResult=document.getElementById('fakeResult');
+  fakeBtn.onclick=()=>{
+    const txt=fakeInput.value.toLowerCase();
+    if(!txt.trim()){
+      fakeResult.textContent='कृपया कोई हेडलाइन या मैसेज पेस्ट करें।';
+      return;
+    }
+    let risk=0;
+    ['urgent','share now','forward to everyone','win','lottery','jackpot','free','click here'].forEach(word=>{
+      if(txt.includes(word))risk++;
+    });
+    if(risk>=2){
+      fakeResult.textContent='⚠ यह मैसेज हाई‑रिस्क लग रहा है। स्रोत जांचें, इमेज सर्च करें और बिना वेरिफाई किए आगे न भेजें।';
+    }else{
+      fakeResult.textContent='ℹ केवल टेक्स्ट पढ़कर 100% तय नहीं किया जा सकता। फिर भी, स्रोत, तारीख और आधिकारिक न्यूज़ से ज़रूर मिलान करें।';
+    }
+  };
+
+  // Student goal reflection
+  const goalInput=document.getElementById('goalInput');
+  const goalResult=document.getElementById('goalResult');
+  goalInput.addEventListener('blur',()=>{
+    if(goalInput.value.trim()){
+      goalResult.textContent='अच्छा है कि आपने लक्ष्य लिखा। अब इसे छोटे‑छोटे स्टेप्स में तोड़िए – यह साइट आपको सुरक्षित डिजिटल फैसले लेने में मदद करेगी।';
+    }else{
+      goalResult.textContent='';
+    }
+  });
+
+  // Help form
+  const helpForm=document.getElementById('helpForm');
+  const helpResult=document.getElementById('helpResult');
+  helpForm.addEventListener('submit',e=>{
+    e.preventDefault();
+    const name=document.getElementById('name').value || 'Friend';
+    const issue=document.getElementById('issue').value;
+    helpResult.textContent=`Thank you, ${name}. This demo shows how a real helpline form can collect details for issues like: ${issue}.`;
+    helpForm.reset();
+  });
+</script>
+</body>
+</html>
